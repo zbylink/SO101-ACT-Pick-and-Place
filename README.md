@@ -6,9 +6,15 @@ A real-world robotic manipulation demo using the **LeRobot SO-101** and **ACT (A
 
 ## Demo
 
-**Full continuous autonomous rollout video — coming next**
+[![Three successful autonomous pick-and-place cycles at 1.5x speed](assets/demo-3-cycles-1.5x.gif)](assets/evaluation-full.mp4)
 
-The evaluation video contains all 9 consecutive attempts, including the failure on the 9th attempt.
+**Quick preview:** 3 consecutive successful cycles at **1.5× speed** (26 seconds; GIF, approximately 9.1 MB). The excerpt covers 00:06–00:45 of the original recording and retains the manual object resets between autonomous cycles.
+
+**[Watch or download the full continuous evaluation video](assets/evaluation-full.mp4)** — original MP4, approximately 2 min 3.53 s, 19.1 MB, normal speed, with audio.
+
+The full recording shows **8 consecutive successful autonomous pick-and-place cycles followed by a failure on the 9th attempt**. All 9 attempts are retained without cuts or speed changes. This is one continuous demonstration, not a statistical success-rate estimate.
+
+See [media details and preview-generation parameters](assets/README.md).
 
 ## Overview
 
@@ -130,7 +136,7 @@ SO101-ACT-Pick-and-Place/
 └── docs/            # Additional setup and experiment notes
 ```
 
-Media and reproducibility files will be added as the project is documented.
+Demo media and processing details are available in `assets/`. Additional reproducibility files will be added as the project is documented.
 
 ## Acknowledgements
 
