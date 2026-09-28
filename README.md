@@ -2,13 +2,13 @@
 
 A real-world robotic manipulation demo using the **LeRobot SO-101** and **ACT (Action Chunking with Transformers)** for imitation learning.
 
-> **Result:** The trained policy completed **9 consecutive autonomous pick-and-place cycles** in a continuous real-world rollout.
+> **Evaluation result:** The trained policy completed **8 consecutive autonomous pick-and-place cycles successfully**. The **9th attempt failed** and is retained as a real-world failure case.
 
 ## Demo
 
-**Full 9-cycle autonomous rollout video — coming next**
+**Full continuous autonomous rollout video — coming next**
 
-The complete continuous rollout video will be added here.
+The evaluation video contains all 9 consecutive attempts, including the failure on the 9th attempt.
 
 ## Overview
 
@@ -51,6 +51,8 @@ The goal was not only to train a policy offline, but to deploy it on physical ha
 
 Pick-and-place demonstrations were collected by teleoperating the SO-101 follower with an SO-101 leader arm. Robot state/action data and synchronized visual observations were recorded through LeRobot.
 
+The training dataset contains **40 teleoperated demonstration episodes**.
+
 ### 2. ACT Policy Training
 
 The demonstrations were used to train an ACT policy. ACT predicts chunks of future robot actions rather than a single action at each inference step, making it suitable for continuous manipulation trajectories.
@@ -61,9 +63,49 @@ The trained checkpoint was deployed back onto the physical SO-101. During rollou
 
 ### 4. Continuous Evaluation
 
-The final demonstration shows **9 successful pick-and-place executions consecutively in one continuous autonomous run**.
+The policy completed **8 consecutive autonomous pick-and-place cycles successfully**. The **9th consecutive attempt failed**.
 
-This continuous rollout demonstrates repeatability rather than presenting only an isolated successful trial.
+The failure is intentionally retained in the full evaluation video rather than removed. This provides a more transparent view of both repeated successful execution and a real-world failure case.
+
+## Dataset & Training Configuration
+
+### Dataset
+
+- **40 teleoperated demonstration episodes**
+- Dual-camera visual observations: wrist camera + front camera
+- 6-DoF robot state/action
+- Recording frequency: 30 FPS
+
+### ACT Training
+
+The ACT policy was trained with the following LeRobot configuration:
+
+```powershell
+lerobot-train `
+  --dataset.repo_id=BoyuZhao/so101_test `
+  --dataset.root="C:\Users\zby\.cache\huggingface\lerobot\BoyuZhao\so101_test_20260902_014234" `
+  --dataset.streaming=false `
+  --policy.type=act `
+  --output_dir="C:\Users\zby\lerobot\outputs\train\act_so101_test_120k" `
+  --job_name=act_so101_test_120k `
+  --policy.device=cuda `
+  --wandb.enable=false `
+  --policy.push_to_hub=false `
+  --steps=120000 `
+  --batch_size=8 `
+  --save_freq=10000 `
+  --policy.use_amp=true
+```
+
+### Training Performance
+
+- **Training steps:** 120,000
+- **Batch size:** 8
+- **Device:** CUDA
+- **Automatic Mixed Precision (AMP):** enabled
+- **Observed training throughput:** approximately **2.83 steps/s**
+
+The throughput above is the observed training speed on the hardware used for this experiment and may vary across systems.
 
 ## What This Project Demonstrates
 
@@ -71,10 +113,10 @@ This continuous rollout demonstrates repeatability rather than presenting only a
 - Leader-follower teleoperation and demonstration collection
 - Multi-camera visual observations
 - ACT policy training with LeRobot and PyTorch
-- CUDA-based model training
+- CUDA and mixed-precision model training
 - Deployment of a learned policy on a physical robot
 - Real-world debugging of robot communication, camera pipelines, and inference
-- Repeated autonomous manipulation rather than a single successful execution
+- Continuous evaluation including both successful executions and a retained failure case
 
 ## Repository Structure
 
