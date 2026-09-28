@@ -16,6 +16,26 @@ The full recording shows **8 consecutive successful autonomous pick-and-place cy
 
 See [media details and preview-generation parameters](assets/README.md).
 
+## Reproduction / Quick Start
+
+Start with **[Windows setup, calibration and full reproduction guide](docs/setup.md)** and [environment provenance](docs/environment.md). These scripts target the author's inspected **JoyandAI/lerobot fork at `eacddcb9cff5e033c7811daa15d30f5debcc9a7b`**; CLI behavior differs across LeRobot versions.
+
+1. Install the pinned environment and identify/calibrate your arms and cameras.
+2. Collect demonstrations with [`scripts/record.ps1`](scripts/record.ps1).
+3. Train ACT with [`scripts/train.ps1`](scripts/train.ps1).
+4. Deploy a complete checkpoint with [`scripts/rollout.ps1`](scripts/rollout.ps1).
+
+```powershell
+# After installation/calibration; run from this repository root.
+$units = Read-Host 'Confirmed joint units: true for degrees, false for normalized positions'
+$task = Read-Host 'Describe your pick-and-place task'
+.\scripts\record.ps1 -Task $task -UseDegrees $units -DryRun
+.\scripts\train.ps1 -DryRun
+.\scripts\rollout.ps1 -Task $task -UseDegrees $units -DryRun
+```
+
+`-DryRun` prints arguments without running LeRobot or moving hardware. Follow the setup guide, then remove it at each stage when ready. Paths, ports, camera indices and training settings are configurable. The full training dataset and weights are not included; record your own data or obtain a complete copy. Public availability of `BoyuZhao/so101_test` has not been verified. Historical joint units remain unconfirmed and must be established before deploying an existing checkpoint.
+
 ## Overview
 
 This project implements an end-to-end imitation-learning workflow for autonomous robotic manipulation:
@@ -136,7 +156,7 @@ SO101-ACT-Pick-and-Place/
 └── docs/            # Additional setup and experiment notes
 ```
 
-Demo media and processing details are available in `assets/`. Additional reproducibility files will be added as the project is documented.
+Demo media and processing details are available in `assets/`. Reproduction scripts are in `scripts/`; installation, configuration and environment notes are in `docs/`.
 
 ## Acknowledgements
 
