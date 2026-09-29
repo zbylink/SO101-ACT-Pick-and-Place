@@ -221,3 +221,10 @@ __marimo__/
 /data/
 /outputs/
 /environment-resolved.*
+
+# Python experiment manager local state
+/runs/
+/configs/local*.json
+*.safetensors
+*.pt
+*.pth

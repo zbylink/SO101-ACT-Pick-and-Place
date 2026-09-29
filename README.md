@@ -16,6 +16,31 @@ The full recording shows **8 consecutive successful autonomous pick-and-place cy
 
 See [media details and preview-generation parameters](assets/README.md).
 
+## Python Experiment Manager
+
+The Python layer adds **typed configuration validation, read-only preflight checks, experiment logs, and verified checkpoint downloads** around LeRobot. ACT training and robot inference are provided by LeRobot; this repository implements the experiment workflow and deployment tooling.
+
+```powershell
+# Activate the pinned environment from docs/setup.md first.
+python main.py init-config
+# Edit configs/local.json: task, confirmed joint units, ports, cameras and paths.
+python main.py check
+python main.py record --config configs/local.json --dry-run
+python main.py train --config configs/local.json --dry-run
+python main.py rollout --config configs/local.json --dry-run
+```
+
+Follow the stage-specific checks in the **[Python usage guide](docs/python.md)** before removing `--dry-run`. Each actual execution records its resolved config, environment, console output and exit status under `runs/`. The original PowerShell scripts remain available below.
+
+**[Public pretrained ACT model](https://huggingface.co/BoyuZhao/so101-act-pick-and-place)** — complete final checkpoint from the 40-episode, 120k-step training run, with normalization state. Read the [model provenance and deployment limits](docs/model.md), then download without putting large weights in Git:
+
+```powershell
+python main.py download-model
+python main.py verify-model
+```
+
+Run the offline test suite with `python -m unittest discover -s tests -v`.
+
 ## Reproduction / Quick Start
 
 Start with **[Windows setup, calibration and full reproduction guide](docs/setup.md)** and [environment provenance](docs/environment.md). These scripts target the author's inspected **JoyandAI/lerobot fork at `eacddcb9cff5e033c7811daa15d30f5debcc9a7b`**; CLI behavior differs across LeRobot versions.
@@ -34,7 +59,7 @@ $task = Read-Host 'Describe your pick-and-place task'
 .\scripts\rollout.ps1 -Task $task -UseDegrees $units -DryRun
 ```
 
-`-DryRun` prints arguments without running LeRobot or moving hardware. Follow the setup guide, then remove it at each stage when ready. Paths, ports, camera indices and training settings are configurable. The full training dataset and weights are not included; record your own data or obtain a complete copy. Public availability of `BoyuZhao/so101_test` has not been verified. Historical joint units remain unconfirmed and must be established before deploying an existing checkpoint.
+`-DryRun` prints arguments without running LeRobot or moving hardware. Follow the setup guide, then remove it at each stage when ready. Paths, ports, camera indices and training settings are configurable. The full training dataset is not included; record your own data or obtain a complete copy. Pretrained weights are hosted separately on Hugging Face; see the model section above. Public availability of `BoyuZhao/so101_test` has not been verified. Historical joint units remain unconfirmed and must be established before deploying an existing checkpoint.
 
 ## Overview
 
@@ -152,7 +177,12 @@ SO101-ACT-Pick-and-Place/
 ├── LICENSE
 ├── .gitignore
 ├── assets/          # Demo media
-├── scripts/         # Reproducible record/train/rollout commands
+├── main.py          # Python command-line entry point
+├── so101_act/       # Config, checks, execution logs and model management
+├── configs/         # Experiment configuration template
+├── models/          # Published model revision and SHA-256 manifest
+├── tests/           # Offline Python tests
+├── scripts/         # Original PowerShell record/train/rollout commands
 └── docs/            # Additional setup and experiment notes
 ```
 

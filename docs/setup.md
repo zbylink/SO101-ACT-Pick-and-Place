@@ -1,6 +1,6 @@
 # Reproduce the SO-101 + ACT workflow
 
-Run these instructions in **Anaconda PowerShell on Windows**. The scripts wrap LeRobot; this repository does not duplicate its training or robot-control implementation. They do not upload datasets or checkpoints.
+Run these instructions in **Anaconda PowerShell on Windows**. The scripts wrap LeRobot; this repository does not duplicate its training or robot-control implementation. For the Python configuration manager, preflight checks and logging, see [python.md](python.md). The PowerShell path below remains supported. They do not upload datasets or checkpoints.
 
 ## 1. Version and environment
 
@@ -98,7 +98,7 @@ To use the author's existing data instead of collecting new demonstrations:
 
 The original output was `C:\Users\zby\lerobot\outputs\train\act_so101_test_120k`. The observed throughput was approximately 2.83 steps/s, not a performance guarantee. Reduced batch sizes/steps are new experiments, not the documented training run.
 
-**Artifact availability:** `BoyuZhao/so101_test` identifies the experiment; public download availability was not verified. This Git repository contains demo media and scripts, not the full training dataset or trained weights. To reproduce, record your own data or obtain a complete authorized copy of the dataset. Preserve `meta/`, `data/`, and `videos/` together. The scripts intentionally require a local dataset rather than assuming this ID can be downloaded.
+**Artifact availability:** `BoyuZhao/so101_test` identifies the experiment; public download availability was not verified. This Git repository contains demo media and experiment code, not the full training dataset. The complete final trained checkpoint is now hosted separately on Hugging Face; see [model.md](model.md). To reproduce, record your own data or obtain a complete authorized copy of the dataset. Preserve `meta/`, `data/`, and `videos/` together. The scripts intentionally require a local dataset rather than assuming this ID can be downloaded.
 
 ## 5. Run the trained policy
 

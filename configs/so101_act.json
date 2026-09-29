@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "project_root": "..",
+  "task": null,
+  "hardware": {
+    "follower_port": "COM7",
+    "follower_id": "myfollower01",
+    "leader_port": "COM8",
+    "leader_id": "myleader01",
+    "use_degrees": null,
+    "wrist_camera": 0,
+    "front_camera": 1,
+    "width": 640,
+    "height": 480,
+    "fps": 30
+  },
+  "dataset": {"repo_id": "BoyuZhao/so101_test", "root": "data/so101_test"},
+  "record": {"episodes": 40, "episode_seconds": 60, "reset_seconds": 60},
+  "train": {
+    "output_dir": "outputs/train/act_so101_test_120k",
+    "job_name": "act_so101_test_120k",
+    "steps": 120000,
+    "batch_size": 8,
+    "save_freq": 10000,
+    "num_workers": 4,
+    "device": "cuda",
+    "use_amp": true
+  },
+  "rollout": {
+    "policy_path": "outputs/train/act_so101_test_120k/checkpoints/last/pretrained_model",
+    "duration_seconds": 30,
+    "device": "cuda"
+  },
+  "logging": {"root": "runs"}
+}

@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "repo_id": "BoyuZhao/so101-act-pick-and-place",
+  "revision": "c50534403a6635052f2abeeef5a9e74fe703fc51",
+  "source_checkpoint": "act_so101_test_120k/checkpoints/last/pretrained_model",
+  "training_episodes": 40,
+  "training_steps": 120000,
+  "historical_use_degrees": null,
+  "files": {
+    "config.json": {
+      "size": 1738,
+      "sha256": "4373a82fcb93464a53af5839155e15c938f535936ddf8914e8fe5a97caaba1f5"
+    },
+    "LICENSE": {
+      "size": 1085,
+      "sha256": "e9f37c7acadb2db0686f3550991001b02a1af4238c135179f57b765cc8fd2724"
+    },
+    "model.safetensors": {
+      "size": 206699736,
+      "sha256": "ea3b391bf151cdebddb6551b52f494dedd132534dcd9807a54484d6d9e1bff0f"
+    },
+    "policy_postprocessor.json": {
+      "size": 691,
+      "sha256": "e359584c9f74e9c6ffe6f801512642d97bb15610a7879e245bda5269b7d6dcc1"
+    },
+    "policy_postprocessor_step_0_unnormalizer_processor.safetensors": {
+      "size": 7552,
+      "sha256": "331dc10d9ac306ca8ef0f94e8f91a655b577d90238a36cd2e6f440926b300c7a"
+    },
+    "policy_preprocessor.json": {
+      "size": 1391,
+      "sha256": "5049a30cf5e175679f3bbf4d843491cc722c34e5776e8edf9049a82c6813209c"
+    },
+    "policy_preprocessor_step_3_normalizer_processor.safetensors": {
+      "size": 7552,
+      "sha256": "331dc10d9ac306ca8ef0f94e8f91a655b577d90238a36cd2e6f440926b300c7a"
+    },
+    "README.md": {
+      "size": 3730,
+      "sha256": "21beffb06691740b8012b5f79d217cb91d7fb8db88ca845f681645ce310e10fd"
+    },
+    "train_config.json": {
+      "size": 4486,
+      "sha256": "328dcd5a98b08c42cf0ffb069893f770a064a96653faa9ef3fb919dbaafb61eb"
+    }
+  }
+}
